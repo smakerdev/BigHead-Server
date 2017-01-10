@@ -10,11 +10,5 @@ public class HomeController {
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home() {
 		return "home";
-	}
-	
-	@RequestMapping(value = "/API/check", method = RequestMethod.GET)
-	public String checkValue() {
-		return "check";
-	}
-	
+	}	
 }
