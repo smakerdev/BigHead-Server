@@ -2,6 +2,8 @@ package kr.smaker.bighead.controller;
 
 import java.util.HashMap;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -18,9 +20,16 @@ public class CodeController {
 	private DBService db;
 	
 	@RequestMapping(value = "/create", method = RequestMethod.GET)
-	public ResponseEntity<String> createCode() throws Exception {
+	public ResponseEntity<String> createCode(HttpServletRequest request) throws Exception {
+		String code = request.getParameter("code");
+		String imei = request.getParameter("imei");
 		HashMap<String, Object> map = new HashMap<String, Object>(); 
-		db.insertCode(map);
+		map.put("code", code);
+		map.put("imei", imei);
+		if (code != null && imei != null) {
+			db.insertCode(map);
+		}
+		
 		return null;
 	}
 	
