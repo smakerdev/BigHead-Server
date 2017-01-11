@@ -25,4 +25,8 @@ public class DBService {
 	public List<Map<String, Object>> selectList(Map<String, Object> map) throws Exception {
 		return sqlSession.selectList("userMapper.selectList", map);
 	}
+	
+	public void updateImei(HashMap<String, Object> map) throws Exception {
+		sqlSession.update("userMapper.updateImei", map);
+	}
 }

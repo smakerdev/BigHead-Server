@@ -20,4 +20,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     	select code, imei from codedata
           ]]>
 	</select>
+	
+	<update id="updateImei" parameterType="java.util.HashMap">
+		update codedata set imei = #{imei} where code = #{code};
+	</update>
 </mapper>

@@ -35,7 +35,7 @@ public class CodeController {
 		map.put("code", code);
 		map.put("imei", imei);
 		if (code != null && imei != null) {
-			
+
 			try {
 				db.insertCode(map);
 				obj.put("success", true);
@@ -60,7 +60,7 @@ public class CodeController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 		if (imeidb != null && imeidb.equals(imei)) {
 			obj.put("success", true);
 			return new UTF8Response(obj.toJSONString(), "json").entity;
@@ -68,8 +68,38 @@ public class CodeController {
 		return new UTF8Response(obj.toJSONString(), "json").entity;
 	}
 
+	@RequestMapping(value = "/register", method = RequestMethod.GET)
+	public ResponseEntity<String> registerCode(HttpServletRequest request) {
+		String code = request.getParameter("code");
+		String imei = request.getParameter("imei");
+		String imeidb = null;
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		JSONObject obj = new JSONObject();
+		obj.put("success", false);
+
+		try {
+			imeidb = db.selectImei(code);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		if (imeidb == null) {
+			try {
+				map.put("code", code);
+				map.put("imei", imei);
+				db.updateImei(map);
+				
+				obj.put("success", true);
+				return new UTF8Response(obj.toJSONString(), "json").entity;
+			} catch (Exception e) {
+				return new UTF8Response(obj.toJSONString(), "json").entity;
+			}
+		}
+		return new UTF8Response(obj.toJSONString(), "json").entity;
+	}
+
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	public ResponseEntity<String> listCode(ModelMap modelMap, Map<String, Object> commandMap, 
+	public ResponseEntity<String> listCode(ModelMap modelMap, Map<String, Object> commandMap,
 			HttpServletRequest request) throws Exception {
 		List<Map<String, Object>> list = db.selectList(commandMap);
 		JSONObject obj = new JSONObject();
