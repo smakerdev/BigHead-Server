@@ -28,13 +28,12 @@ public class CodeController {
 	@RequestMapping(value = "/create", method = RequestMethod.GET)
 	public ResponseEntity<String> createCode(HttpServletRequest request) throws DuplicateKeyException {
 		String code = request.getParameter("code");
-		String imei = request.getParameter("imei");
 		JSONObject obj = new JSONObject();
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		obj.put("success", false);
 		map.put("code", code);
-		map.put("imei", imei);
-		if (code != null && imei != null) {
+		map.put("imei", null);
+		if (code != null) {
 
 			try {
 				db.insertCode(map);
