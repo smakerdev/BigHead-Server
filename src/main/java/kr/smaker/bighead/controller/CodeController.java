@@ -1,6 +1,8 @@
 package kr.smaker.bighead.controller;
 
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -9,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -66,7 +69,11 @@ public class CodeController {
 	}
 
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	public ResponseEntity<String> listCode() {
-		return null;
+	public ResponseEntity<String> listCode(ModelMap modelMap, Map<String, Object> commandMap, 
+			HttpServletRequest request) throws Exception {
+		List<Map<String, Object>> list = db.selectList(commandMap);
+		JSONObject obj = new JSONObject();
+		obj.put("data", list.toString());
+		return new UTF8Response(obj.toJSONString(), "json").entity;
 	}
 }
