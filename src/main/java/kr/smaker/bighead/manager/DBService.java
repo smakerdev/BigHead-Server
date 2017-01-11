@@ -1,6 +1,7 @@
 package kr.smaker.bighead.manager;
 
 import java.util.HashMap;
+import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,5 +19,9 @@ public class DBService {
 	
 	public String selectImei(String param) throws Exception {
 		return sqlSession.selectOne("userMapper.selectImei", param);
+	}
+	
+	public List<HashMap<String, Object>> selectList() throws Exception {
+		return sqlSession.selectList("userMapper.selectList");
 	}
 }

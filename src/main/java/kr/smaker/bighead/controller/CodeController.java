@@ -58,7 +58,7 @@ public class CodeController {
 			e.printStackTrace();
 		}
 		
-		if (imeidb != null && imeidb == imei) {
+		if (imeidb != null && imeidb.equals(imei)) {
 			obj.put("success", true);
 			return new UTF8Response(obj.toJSONString(), "json").entity;
 		}
