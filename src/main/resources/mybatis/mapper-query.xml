@@ -10,4 +10,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		(code, imei)
 		values (#{code}, #{imei});
 	</insert>
+	
+	<select id="selectImei" parameterType="String" resultType="String">
+		select imei from codedata where code = #{code};
+	</select>
 </mapper>

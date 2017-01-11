@@ -15,4 +15,8 @@ public class DBService {
 	public void insertCode(HashMap<String, Object> map) throws Exception {
 		sqlSession.insert("userMapper.insertCode", map);
 	}
+	
+	public String selectImei(String param) throws Exception {
+		return sqlSession.selectOne("userMapper.selectImei", param);
+	}
 }
