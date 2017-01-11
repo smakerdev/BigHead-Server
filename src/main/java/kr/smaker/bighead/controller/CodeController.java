@@ -25,7 +25,7 @@ public class CodeController {
 	@Autowired
 	private DBService db;
 
-	@RequestMapping(value = "/create", method = RequestMethod.GET)
+	@RequestMapping(value = "/create", method = RequestMethod.POST)
 	public ResponseEntity<String> createCode(HttpServletRequest request) throws DuplicateKeyException {
 		String code = request.getParameter("code");
 		JSONObject obj = new JSONObject();
@@ -46,7 +46,7 @@ public class CodeController {
 		return new UTF8Response(obj.toJSONString(), "json").entity;
 	}
 
-	@RequestMapping(value = "/check", method = RequestMethod.GET)
+	@RequestMapping(value = "/check", method = RequestMethod.POST)
 	public ResponseEntity<String> checkCode(HttpServletRequest request) throws DuplicateKeyException {
 		String code = request.getParameter("code");
 		String imei = request.getParameter("imei");
@@ -67,7 +67,7 @@ public class CodeController {
 		return new UTF8Response(obj.toJSONString(), "json").entity;
 	}
 
-	@RequestMapping(value = "/register", method = RequestMethod.GET)
+	@RequestMapping(value = "/register", method = RequestMethod.POST)
 	public ResponseEntity<String> registerCode(HttpServletRequest request) {
 		String code = request.getParameter("code");
 		String imei = request.getParameter("imei");
